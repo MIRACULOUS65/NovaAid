@@ -15,7 +15,7 @@ export default function LandingPage() {
         
         <div className="text-center space-y-3 mb-8 max-w-3xl">
           <p className="text-lg md:text-2xl text-neutral-200 font-light italic">
-            "Illuminating Trust in Every Crisis."
+            &ldquo;Illuminating Trust in Every Crisis.&rdquo;
           </p>
           <p className="text-sm md:text-base text-neutral-300">
             🌍 Symbolizes resilience and transparency — AI & blockchain uniting to restore faith in global aid systems.
