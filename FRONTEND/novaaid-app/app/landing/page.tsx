@@ -23,7 +23,7 @@ export default function LandingPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <Link href="/homepage" prefetch={true}>
+          <Link href="/role-select" prefetch={true}>
             <GradientButton>
               Get Started
             </GradientButton>

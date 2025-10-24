@@ -14,11 +14,15 @@ import {
   ShieldCheck, 
   Layers, 
   Zap,
-  Home
+  Home,
+  DollarSign,
+  MessageSquare
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const features = [
   {
@@ -44,6 +48,24 @@ const features = [
 ];
 
 export default function Homepage() {
+  const { user, isSignedIn } = useUser();
+  const { signOut, openSignIn } = useClerk();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    if (isSignedIn) {
+      router.push("/profile");
+    } else {
+      openSignIn();
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/landing");
+  };
+
   const links = [
     {
       label: "Home",
@@ -54,16 +76,23 @@ export default function Homepage() {
     },
     {
       label: "Dashboard",
-      href: "#",
+      href: "/homepage",
       icon: (
         <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Profile",
-      href: "#",
+      label: "Pricing",
+      href: "/pricing",
       icon: (
-        <UserCog className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <DollarSign className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Testimonials",
+      href: "/testimonials",
+      icon: (
+        <MessageSquare className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
@@ -73,16 +102,7 @@ export default function Homepage() {
         <Settings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <LogOut className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
   ];
-
-  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full h-screen overflow-hidden transition-all duration-300">
@@ -94,6 +114,24 @@ export default function Homepage() {
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+              {/* Profile Button */}
+              <button
+                onClick={handleProfileClick}
+                className="flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md transition-colors"
+              >
+                <UserCog className="h-5 w-5 flex-shrink-0" />
+                {open && <span>Profile</span>}
+              </button>
+              {/* Logout Button - Only visible when signed in */}
+              {isSignedIn && (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md transition-colors"
+                >
+                  <LogOut className="h-5 w-5 flex-shrink-0" />
+                  {open && <span>Logout</span>}
+                </button>
+              )}
             </div>
           </div>
         </SidebarBody>
