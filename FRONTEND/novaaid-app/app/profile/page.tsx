@@ -44,16 +44,54 @@ export default function ProfilePage() {
     const fetchUserData = async () => {
       if (isLoaded && user) {
         try {
+          console.log("Starting user sync for:", user.id);
+          
           // First, sync user to Firestore
-          await fetch('/api/sync-user', { method: 'POST' });
+          const syncResponse = await fetch('/api/sync-user', { method: 'POST' });
+          const syncData = await syncResponse.json();
+          console.log("Sync response:", syncData);
+          
+          if (!syncResponse.ok) {
+            console.error("Sync failed:", syncData);
+          }
+          
+          // Wait a bit for Firestore to update
+          await new Promise(resolve => setTimeout(resolve, 1000));
           
           // Then fetch user data
+          console.log("Fetching user data from Firestore...");
           const userDoc = await getDoc(doc(db, "users", user.id));
+          console.log("User doc exists:", userDoc.exists());
+          
           if (userDoc.exists()) {
-            setUserData(userDoc.data() as UserData);
+            const data = userDoc.data() as UserData;
+            console.log("User data:", data);
+            setUserData(data);
+          } else {
+            console.error("User document does not exist in Firestore");
+            // Fallback to Clerk data
+            setUserData({
+              clerkId: user.id,
+              email: user.emailAddresses[0]?.emailAddress || '',
+              firstName: user.firstName || '',
+              lastName: user.lastName || '',
+              username: user.username || '',
+              imageUrl: user.imageUrl || '',
+              updatedAt: new Date().toISOString(),
+            });
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
+          // Fallback to Clerk data on error
+          setUserData({
+            clerkId: user.id,
+            email: user.emailAddresses[0]?.emailAddress || '',
+            firstName: user.firstName || '',
+            lastName: user.lastName || '',
+            username: user.username || '',
+            imageUrl: user.imageUrl || '',
+            updatedAt: new Date().toISOString(),
+          });
         } finally {
           setLoading(false);
         }
