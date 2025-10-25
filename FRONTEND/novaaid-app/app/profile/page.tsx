@@ -44,32 +44,20 @@ export default function ProfilePage() {
     const fetchUserData = async () => {
       if (isLoaded && user) {
         try {
-          console.log("Starting user sync for:", user.id);
-          
-          // First, sync user to Firestore
+          // Sync user to Firestore
           const syncResponse = await fetch('/api/sync-user', { method: 'POST' });
-          const syncData = await syncResponse.json();
-          console.log("Sync response:", syncData);
           
           if (!syncResponse.ok) {
-            console.error("Sync failed:", syncData);
+            throw new Error('Failed to sync user data');
           }
           
-          // Wait a bit for Firestore to update
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          // Then fetch user data
-          console.log("Fetching user data from Firestore...");
+          // Fetch user data from Firestore
           const userDoc = await getDoc(doc(db, "users", user.id));
-          console.log("User doc exists:", userDoc.exists());
           
           if (userDoc.exists()) {
-            const data = userDoc.data() as UserData;
-            console.log("User data:", data);
-            setUserData(data);
+            setUserData(userDoc.data() as UserData);
           } else {
-            console.error("User document does not exist in Firestore");
-            // Fallback to Clerk data
+            // Fallback to Clerk data if Firestore document doesn't exist
             setUserData({
               clerkId: user.id,
               email: user.emailAddresses[0]?.emailAddress || '',
@@ -81,7 +69,7 @@ export default function ProfilePage() {
             });
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          console.error("Error syncing user data:", error);
           // Fallback to Clerk data on error
           setUserData({
             clerkId: user.id,

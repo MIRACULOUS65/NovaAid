@@ -10,10 +10,9 @@ function getPrivateKey(): string | undefined {
   if (!key.includes('BEGIN PRIVATE KEY')) {
     try {
       // Decode from base64
-      const decoded = Buffer.from(key, 'base64').toString('utf-8');
-      return decoded;
+      return Buffer.from(key, 'base64').toString('utf-8');
     } catch (error) {
-      console.error('Failed to decode base64 private key:', error);
+      // If decoding fails, return the key as-is
       return key;
     }
   }
