@@ -1,0 +1,15 @@
+{
+  "network": "sepolia",
+  "chainId": 11142220,
+  "deployer": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+  "timestamp": "2025-10-25T11:32:20.221Z",
+  "contracts": {
+    "SemaphoreVerifier": "0x1101B80D2E2b298506E049c61FE5305a00fa1EF7",
+    "VerifiedPayments": "0x71D76E34A390d07F92009ab2AF3e732F09C87f41"
+  },
+  "configuration": {
+    "serverWallet": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+    "verificationFee": "10000000000000000",
+    "cusdAddress": "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
+  }
+}

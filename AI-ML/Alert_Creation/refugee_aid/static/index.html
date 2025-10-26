@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugee Aid Urgency Scorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1rem; }
+        .content { padding: 30px; }
+        .section { margin-bottom: 30px; }
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            margin-left: 10px;
+        }
+        .btn-secondary:hover { background: #5a6268; }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        .results.show { display: block; }
+        .score-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .score-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        .score-label { color: #666; font-size: 1.1rem; margin-bottom: 5px; }
+        .urgency-high { border-left-color: #dc3545; }
+        .urgency-high .score-value { color: #dc3545; }
+        .urgency-medium { border-left-color: #ffc107; }
+        .urgency-medium .score-value { color: #ffc107; }
+        .urgency-low { border-left-color: #28a745; }
+        .urgency-low .score-value { color: #28a745; }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        .detail-item strong { display: block; color: #666; font-size: 0.85rem; margin-bottom: 5px; }
+        .detail-item span { font-size: 1.3rem; color: #333; font-weight: 600; }
+        .notes {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+        .notes strong { display: block; margin-bottom: 5px; }
+        .notes ul { list-style: none; padding-left: 0; }
+        .notes li { padding: 3px 0; color: #856404; }
+        .example-btn {
+            background: #17a2b8;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .example-btn:hover { background: #138496; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏕️ Refugee Aid Urgency Scorer</h1>
+            <p>Predict which camps most urgently need aid (Score: 0-1, higher = more urgent)</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>📊 Input Camp Data</h2>
+                <button class="example-btn" onclick="loadExample()">Load Example Data</button>
+                
+                <form id="scoreForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Location ID *</label>
+                            <input type="text" id="location_id" required placeholder="e.g., camp_alpha">
+                        </div>
+                        <div class="form-group">
+                            <label>Population</label>
+                            <input type="number" id="population" placeholder="e.g., 12000">
+                        </div>
+                        <div class="form-group">
+                            <label>Area (km²)</label>
+                            <input type="number" step="0.1" id="area_km2" placeholder="e.g., 2.0">
+                        </div>
+                        <div class="form-group">
+                            <label>Crowd Density (ppl/km²)</label>
+                            <input type="number" step="0.1" id="crowd_density" placeholder="Auto-calculated if blank">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Food Supply (days left)</label>
+                            <input type="number" step="0.1" id="food_supply_days" placeholder="e.g., 3">
+                        </div>
+                        <div class="form-group">
+                            <label>Water (liters/person/day)</label>
+                            <input type="number" step="0.1" id="water_lpd" placeholder="e.g., 8.0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Health Severity (0-1)</label>
+                            <input type="number" step="0.01" min="0" max="1" id="health_severity_0_1" placeholder="0.7">
+                        </div>
+                        <div class="form-group">
+                            <label>Disease Incidence (per 1000)</label>
+                            <input type="number" step="0.1" id="disease_incidence_per_1k" placeholder="e.g., 35">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Weather Severity (0-1)</label>
+                            <input type="number" step="0.01" min="0" max="1" id="weather_severity_0_1" placeholder="0.8">
+                        </div>
+                        <div class="form-group">
+                            <label>Disaster Flag</label>
+                            <select id="disaster_flag">
+                                <option value="">Not specified</option>
+                                <option value="true">Yes (Active disaster)</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Influx (% change, 7 days)</label>
+                            <input type="number" step="0.1" id="influx_percent_7d" placeholder="e.g., 22 for +22%">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary">Calculate Urgency Score</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="results" id="results">
+                <div class="section">
+                    <h2>🎯 Results</h2>
+                    <div id="resultContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        
+        function loadExample() {
+            document.getElementById('location_id').value = 'camp_alpha';
+            document.getElementById('population').value = 12000;
+            document.getElementById('area_km2').value = 2.0;
+            document.getElementById('food_supply_days').value = 3;
+            document.getElementById('water_lpd').value = 8.0;
+            document.getElementById('disease_incidence_per_1k').value = 35;
+            document.getElementById('disaster_flag').value = 'true';
+            document.getElementById('influx_percent_7d').value = 22;
+        }
+        
+        function resetForm() {
+            document.getElementById('scoreForm').reset();
+            document.getElementById('results').classList.remove('show');
+        }
+        
+        function getUrgencyClass(score) {
+            if (score >= 0.7) return 'urgency-high';
+            if (score >= 0.4) return 'urgency-medium';
+            return 'urgency-low';
+        }
+        
+        function getUrgencyLabel(score) {
+            if (score >= 0.7) return 'CRITICAL - Immediate action required';
+            if (score >= 0.4) return 'MODERATE - Action needed soon';
+            return 'LOW - Monitor situation';
+        }
+        
+        document.getElementById('scoreForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {};
+            const fields = [
+                'location_id', 'population', 'area_km2', 'crowd_density',
+                'food_supply_days', 'water_lpd', 'health_severity_0_1',
+                'disease_incidence_per_1k', 'weather_severity_0_1',
+                'disaster_flag', 'influx_percent_7d'
+            ];
+            
+            fields.forEach(field => {
+                const value = document.getElementById(field).value;
+                if (value !== '') {
+                    formData[field] = value;
+                }
+            });
+            
+            try {
+                const response = await fetch(`${API_BASE}/score`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (!response.ok) throw new Error('API request failed');
+                
+                const results = await response.json();
+                displayResults(results[0]);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+        
+        function displayResults(data) {
+            const score = data.refugee_aid_score;
+            const urgencyClass = getUrgencyClass(score);
+            const urgencyLabel = getUrgencyLabel(score);
+            
+            let html = `
+                <div class="score-card ${urgencyClass}">
+                    <div class="score-label">Refugee Aid Urgency Score</div>
+                    <div class="score-value">${score.toFixed(3)}</div>
+                    <div style="font-size: 1.1rem; font-weight: 600; margin-top: 10px;">${urgencyLabel}</div>
+                </div>
+                
+                <h3 style="margin-top: 25px; margin-bottom: 15px; color: #333;">Signal Breakdown</h3>
+                <div class="details-grid">
+            `;
+            
+            if (data.details) {
+                const labels = {
+                    density: 'Crowd Density',
+                    food: 'Food Supply',
+                    water: 'Water Supply',
+                    health: 'Health/Disease',
+                    weather: 'Weather/Disaster',
+                    movement: 'Movement/Influx'
+                };
+                
+                Object.entries(data.details).forEach(([key, value]) => {
+                    const pct = (value * 100).toFixed(1);
+                    html += `
+                        <div class="detail-item">
+                            <strong>${labels[key] || key}</strong>
+                            <span>${pct}%</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div>';
+            
+            if (data.contributions) {
+                html += '<h3 style="margin-top: 25px; margin-bottom: 15px; color: #333;">Weighted Contributions</h3><div class="details-grid">';
+                
+                Object.entries(data.contributions).forEach(([key, value]) => {
+                    const contrib = (value * 100).toFixed(1);
+                    html += `
+                        <div class="detail-item">
+                            <strong>${key}</strong>
+                            <span>+${contrib}%</span>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            
+            if (data.notes && data.notes.length > 0) {
+                html += `
+                    <div class="notes">
+                        <strong>⚠️ Notes:</strong>
+                        <ul>
+                `;
+                data.notes.forEach(note => {
+                    html += `<li>• ${note}</li>`;
+                });
+                html += '</ul></div>';
+            }
+            
+            document.getElementById('resultContent').innerHTML = html;
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

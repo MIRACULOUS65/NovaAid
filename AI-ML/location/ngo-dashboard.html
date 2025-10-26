@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Alert Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚨 NGO Alert Dashboard</h1>
+            <p class="subtitle">Real-time monitoring and alerts</p>
+        </header>
+
+        <div class="alert-controls">
+            <button id="clearAlertsBtn" class="btn btn-danger">
+                <span>🗑️</span> Clear All Alerts
+            </button>
+            <div class="alert-counter">
+                <span class="label">Active Alerts:</span>
+                <span id="alertCount" class="value alert-badge">0</span>
+            </div>
+        </div>
+
+        <div class="alerts-panel">
+            <h3>⚠️ Recent Alerts</h3>
+            <div id="alertsList" class="alerts-list">
+                <p class="no-alerts">No alerts at this time</p>
+            </div>
+        </div>
+
+        <div id="ngoMap"></div>
+
+        <div class="info-panel">
+            <h3>📍 Monitored Users</h3>
+            <div id="monitoredUsers" class="users-list"></div>
+        </div>
+
+        <audio id="alertSound" preload="auto">
+            <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGJ0fPTgjMGHm7A7+OZRA0PS6fg8bllHAU2j9Xy0H4qBSh+zPLaizsIGGS36+mhTg4MW6zn77FdGAc8ltrzxnMpBSl+zPLajzsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8bllHAU2j9Xy0H4qBSh+zPLaizsIGWS16+ejUBAPT6ni8Q==" type="audio/wav">
+        </audio>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="ngo-dashboard.js"></script>
+</body>
+</html>

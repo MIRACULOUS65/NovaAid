@@ -1,55 +1,270 @@
+# ============================================
+# NovaAid - Git Ignore Configuration
+# ============================================
+
+# ============================================
 # Dependencies
+# ============================================
 node_modules/
 **/node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Environment variables
+# ============================================
+# Environment Variables (CRITICAL - NEVER COMMIT)
+# ============================================
 .env
 .env.local
+.env.development
+.env.test
+.env.production
 .env*.local
+**/.env
 **/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
 
-# Next.js
+# ============================================
+# Next.js Build Output
+# ============================================
 .next/
 **/.next/
 out/
 **/out/
+.vercel
+**/.vercel
+next-env.d.ts
 
-# Build outputs
+# ============================================
+# Build Outputs
+# ============================================
 build/
 dist/
 **/build/
 **/dist/
+*.tsbuildinfo
 
+# ============================================
 # Logs
+# ============================================
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+logs/
+**/logs/
 
-# OS files
+# ============================================
+# OS Files
+# ============================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# IDE
+# ============================================
+# IDE & Editors
+# ============================================
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
 
-# Vercel
-.vercel
-**/.vercel
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
-
-# Testing
+# ============================================
+# Testing & Coverage
+# ============================================
 coverage/
 **/coverage/
+.nyc_output/
+*.lcov
+.jest/
 
-# Misc
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+.cache/
+**/cache/
+.parcel-cache/
+.turbo/
+
+# ============================================
+# Firebase (CRITICAL SECURITY)
+# ============================================
+# Firebase Service Account Keys - NEVER COMMIT THESE
+**/serviceAccountKey.json
+**/zkServiceAccountKey.json
+serviceAccountKey*.json
+zkServiceAccountKey*.json
+firebase-adminsdk-*.json
+*-firebase-adminsdk-*.json
+
+# Firebase cache and config
+.firebase/
+**/.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# ============================================
+# Blockchain & Hardhat
+# ============================================
+# Hardhat files
+cache/
+artifacts/
+**/cache/
+**/artifacts/
+typechain/
+typechain-types/
+
+# Hardhat network files
+deployments/localhost/
+deployments/hardhat/
+
+# Private keys (CRITICAL - NEVER COMMIT)
 *.pem
+*.key
+private-keys.txt
+mnemonic.txt
+
+# ============================================
+# AI/ML Models
+# ============================================
+# Large model files
+*.h5
+*.pb
+*.ckpt
+*.pth
+*.model
+models/weights/
+
+# Training data
+dataset/
+**/dataset/
+training_data/
+
+# ============================================
+# Clerk Authentication
+# ============================================
+.clerk/
+
+# ============================================
+# Daily.co
+# ============================================
+.daily/
+
+# ============================================
+# Python (for AI/ML services)
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ============================================
+# Package Managers
+# ============================================
 .pnp
 .pnp.js
 .yarn/install-state.gz
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ============================================
+# Webpack & Bundlers
+# ============================================
+.webpack/
+.rollup.cache/
+.fusebox/
+
+# ============================================
+# Storybook
+# ============================================
+storybook-static/
+
+# ============================================
+# Serverless
+# ============================================
+.serverless/
+.dynamodb/
+
+# ============================================
+# Miscellaneous
+# ============================================
+# Backup files
+*.bak
+*.backup
+*~
+
+# Sensitive data
+secrets/
+credentials/
+**/secrets/
+**/credentials/
+
+# User-specific files
+.vscode/settings.json
+.idea/workspace.xml
+
+# Documentation build
+docs/_build/
+site/
+
+# Lock files (optional - uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ============================================
+# Custom NovaAid Ignores
+# ============================================
+# Local development files
+local-data/
+test-data/
+*.local.json
+
+# Deployment artifacts
+deployment-temp/
+deploy-logs/
+
+# User uploads (if stored locally)
+uploads/
+temp-uploads/
+user-images/
+
+# Database exports
+*.sql
+*.dump
+firestore-export/
+
+# ============================================
+# END OF GITIGNORE
+# ============================================

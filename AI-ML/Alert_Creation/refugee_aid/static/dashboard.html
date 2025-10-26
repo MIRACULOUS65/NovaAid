@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugee Aid Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>🏕️ Refugee Aid</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-page="overview" class="nav-link active">📊 Overview</a></li>
+                <li><a href="#" data-page="locations" class="nav-link">🗺️ All Locations</a></li>
+                <li><a href="#" data-page="critical" class="nav-link">🚨 Critical Alerts</a></li>
+                <li><a href="#" data-page="analytics" class="nav-link">📈 Analytics</a></li>
+                <li><a href="#" data-page="submit" class="nav-link">➕ Submit Data</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="page-title">Overview</h1>
+                <div class="header-actions">
+                    <div class="notification-bell" onclick="showNotificationPanel()" title="Notifications">
+                        🔔
+                        <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+                    </div>
+                    <button onclick="refreshData()" class="btn btn-refresh">🔄 Refresh</button>
+                    <button onclick="clearAllData()" class="btn btn-danger">🗑️ Clear Data</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div id="overview-page" class="page active"></div>
+                <div id="locations-page" class="page"></div>
+                <div id="critical-page" class="page"></div>
+                <div id="analytics-page" class="page"></div>
+                <div id="submit-page" class="page"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel"></div>
+
+    <!-- Detail Modal -->
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-modal-content">
+            <div class="detail-modal-header">
+                <h2 class="detail-modal-title" id="modalLocationTitle">Location Details</h2>
+                <button class="detail-close" onclick="closeDetailModal()">&times;</button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+</body>
+</html>

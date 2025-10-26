@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Tracker - Launch Pad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .launcher-container {
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #2d2d44 0%, #1f1f3a 100%);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a0a0b0;
+            font-size: 1.2em;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #252541 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .dashboard-card .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .dashboard-card p {
+            color: #a0a0b0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-card .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .user-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .ngo-card .btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .ngo-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .features {
+            background: linear-gradient(135deg, #252541 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .features h3 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .features li {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .features li::before {
+            content: "✓ ";
+            color: #43e97b;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher-container">
+        <div class="header">
+            <h1>🗺️ Location Tracker</h1>
+            <p>Advanced Location Monitoring with Hotspot Zone Alerts</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card user-card" onclick="window.open('index.html', '_blank')">
+                <div class="icon">👤</div>
+                <h2>User Dashboard</h2>
+                <p>Track your location, set hotspot zones, and monitor your distance from safe areas in real-time.</p>
+                <a href="index.html" target="_blank" class="btn">Launch User Dashboard</a>
+            </div>
+
+            <div class="dashboard-card ngo-card" onclick="window.open('ngo-dashboard.html', '_blank')">
+                <div class="icon">🚨</div>
+                <h2>NGO Dashboard</h2>
+                <p>Monitor alerts, track users who leave safe zones, and receive real-time notifications for immediate response.</p>
+                <a href="ngo-dashboard.html" target="_blank" class="btn">Launch NGO Dashboard</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>✨ Key Features</h3>
+            <ul>
+                <li>🆕 Multi-device tracking with unique colored icons</li>
+                <li>🆕 Automatic location detection on page load</li>
+                <li>🆕 Real-time sync across all devices (3s updates)</li>
+                <li>🆕 See all users in the zone simultaneously</li>
+                <li>Automatic GPS location detection</li>
+                <li>Manual location entry option</li>
+                <li>Customizable hotspot safe zones</li>
+                <li>Real-time distance monitoring</li>
+                <li>Continuous location tracking (10s intervals)</li>
+                <li>Browser push notifications</li>
+                <li>Interactive map visualization</li>
+                <li>Location history tracking</li>
+                <li>NGO alert system with audio alerts</li>
+                <li>Auto-refresh monitoring (5s for NGO)</li>
+                <li>Dark gradient modern UI</li>
+                <li>Offline data persistence</li>
+                <li>10 unique color schemes for users</li>
+                <li>Click-to-focus on any user</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

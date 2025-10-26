@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Tracker - User Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗺️ Location Tracker</h1>
+            <p class="subtitle">Stay safe within your designated zone</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="location-controls">
+                <button id="autoDetectBtn" class="btn btn-primary">
+                    <span>📍</span> Auto Detect Location
+                </button>
+                <button id="manualLocationBtn" class="btn btn-secondary">
+                    <span>✏️</span> Enter Manual Location
+                </button>
+                <button id="setHotspotBtn" class="btn btn-success">
+                    <span>🎯</span> Set Hotspot Zone
+                </button>
+                <button id="startTrackingBtn" class="btn btn-warning" disabled>
+                    <span>🔴</span> Start Tracking
+                </button>
+            </div>
+
+            <div class="status-panel">
+                <div class="status-item">
+                    <span class="label">Current Location:</span>
+                    <span id="currentLocation" class="value">Not detected</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Hotspot Zone:</span>
+                    <span id="hotspotStatus" class="value">Not set</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Distance from Zone:</span>
+                    <span id="distanceStatus" class="value">N/A</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">Tracking Status:</span>
+                    <span id="trackingStatus" class="value">Inactive</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="info-panel" style="margin-bottom: 30px;">
+            <h3>👥 Other Users in Zone</h3>
+            <div id="otherUsersInfo" class="history-list">
+                <p style="text-align: center; color: #a0a0b0;">No other users detected</p>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>📊 Location History</h3>
+            <div id="locationHistory" class="history-list"></div>
+        </div>
+    </div>
+
+    <!-- Manual Location Modal -->
+    <div id="manualModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Location Manually</h2>
+            <form id="manualLocationForm">
+                <div class="form-group">
+                    <label for="latitude">Latitude:</label>
+                    <input type="number" id="latitude" step="any" placeholder="e.g., 28.6139" required>
+                </div>
+                <div class="form-group">
+                    <label for="longitude">Longitude:</label>
+                    <input type="number" id="longitude" step="any" placeholder="e.g., 77.2090" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Set Location</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeManualModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hotspot Modal -->
+    <div id="hotspotModal" class="modal">
+        <div class="modal-content">
+            <h2>Set Hotspot Zone</h2>
+            <form id="hotspotForm">
+                <div class="form-group">
+                    <label for="hotspotLat">Latitude:</label>
+                    <input type="number" id="hotspotLat" step="any" placeholder="e.g., 28.6139" required>
+                </div>
+                <div class="form-group">
+                    <label for="hotspotLng">Longitude:</label>
+                    <input type="number" id="hotspotLng" step="any" placeholder="e.g., 77.2090" required>
+                </div>
+                <div class="form-group">
+                    <label for="hotspotRadius">Radius (meters):</label>
+                    <input type="number" id="hotspotRadius" placeholder="e.g., 500" value="500" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-success">Create Zone</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeHotspotModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

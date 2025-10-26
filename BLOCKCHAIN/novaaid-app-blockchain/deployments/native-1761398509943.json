@@ -1,0 +1,15 @@
+{
+  "network": "alfajores",
+  "chainId": 44787,
+  "deployer": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+  "timestamp": "2025-10-25T13:21:49.942Z",
+  "paymentMethod": "native-celo",
+  "contracts": {
+    "SemaphoreVerifier": "0xB5a38Ae309F0725a205D6105242f9887C0761cFa",
+    "VerifiedPaymentsNative": "0xa43F50af5D87011B1659E2d12261222547A79913"
+  },
+  "configuration": {
+    "serverWallet": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+    "verificationFee": "10000000000000000"
+  }
+}

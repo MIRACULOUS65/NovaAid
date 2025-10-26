@@ -1,19 +1,74 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Users, Building2 } from "lucide-react";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 export default function RoleSelectPage() {
   const router = useRouter();
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
+  const [loading, setLoading] = useState<string | null>(null);
 
-  const handleRoleSelect = (role: 'user' | 'ngo') => {
-    if (role === 'user') {
-      router.push('/homepage');
-    } else {
-      router.push('/ngo-dashboard');
+  const handleRoleSelect = async (role: 'user' | 'ngo') => {
+    setLoading(role);
+
+    try {
+      // If user is signed in, set their role
+      if (isLoaded && user) {
+        // Check if user is trying to switch from a different role
+        const currentRole = user.publicMetadata?.activeRole as string | undefined;
+        
+        if (currentRole && currentRole !== role) {
+          // User is trying to switch roles - sign them out first
+          const confirmSwitch = confirm(
+            `You are currently signed in as ${currentRole.toUpperCase()}. To access the ${role.toUpperCase()} portal, you need to sign out first. Continue?`
+          );
+          
+          if (confirmSwitch) {
+            await signOut();
+            // After sign out, redirect to the appropriate portal
+            if (role === 'ngo') {
+              const ngoPortalUrl = process.env.NEXT_PUBLIC_NGO_PORTAL_URL || 'http://localhost:3002';
+              window.location.href = ngoPortalUrl;
+            } else {
+              window.location.href = '/sign-in?redirect_url=/homepage';
+            }
+          } else {
+            setLoading(null);
+          }
+          return;
+        }
+        
+        // Set the active role
+        await fetch('/api/auth/set-role', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role }),
+        });
+      }
+      
+      // Navigate to appropriate portal
+      if (role === 'user') {
+        router.push('/homepage');
+      } else {
+        const ngoPortalUrl = process.env.NEXT_PUBLIC_NGO_PORTAL_URL || 'http://localhost:3002';
+        window.location.href = ngoPortalUrl;
+      }
+    } catch (error) {
+      console.error('Error selecting role:', error);
+      // Continue with navigation even if role setting fails
+      if (role === 'user') {
+        router.push('/homepage');
+      } else {
+        const ngoPortalUrl = process.env.NEXT_PUBLIC_NGO_PORTAL_URL || 'http://localhost:3002';
+        window.location.href = ngoPortalUrl;
+      }
+    } finally {
+      setLoading(null);
     }
   };
 
@@ -59,6 +114,7 @@ export default function RoleSelectPage() {
             icon={<Users className="w-16 h-16" />}
             onClick={() => handleRoleSelect('user')}
             delay={0.2}
+            loading={loading === 'user'}
           />
 
           {/* NGO Button */}
@@ -69,6 +125,7 @@ export default function RoleSelectPage() {
             icon={<Building2 className="w-16 h-16" />}
             onClick={() => handleRoleSelect('ngo')}
             delay={0.4}
+            loading={loading === 'ngo'}
           />
         </div>
       </div>
@@ -83,9 +140,10 @@ interface RoleButtonProps {
   icon: React.ReactNode;
   onClick: () => void;
   delay: number;
+  loading?: boolean;
 }
 
-function RoleButton({ role, title, description, icon, onClick, delay }: RoleButtonProps) {
+function RoleButton({ role, title, description, icon, onClick, delay, loading = false }: RoleButtonProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -110,7 +168,13 @@ function RoleButton({ role, title, description, icon, onClick, delay }: RoleButt
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-xl opacity-50" />
             <div className="relative bg-gradient-to-br from-purple-600 to-pink-600 p-6 rounded-full text-white">
-              {icon}
+              {loading ? (
+                <div className="w-16 h-16 flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                </div>
+              ) : (
+                icon
+              )}
             </div>
           </div>
 

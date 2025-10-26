@@ -16,13 +16,15 @@ import {
   Zap,
   Home,
   DollarSign,
-  MessageSquare
+  MessageSquare,
+  Video
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { RoleGuard } from "@/components/RoleGuard";
 
 const features = [
   {
@@ -48,6 +50,14 @@ const features = [
 ];
 
 export default function Homepage() {
+  return (
+    <RoleGuard requiredRole="user">
+      <HomepageContent />
+    </RoleGuard>
+  );
+}
+
+function HomepageContent() {
   const { user, isSignedIn } = useUser();
   const { signOut, openSignIn } = useClerk();
   const router = useRouter();
@@ -93,6 +103,13 @@ export default function Homepage() {
       href: "/testimonials",
       icon: (
         <MessageSquare className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Video Room",
+      href: "/video/room/test-room-123",
+      icon: (
+        <Video className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {

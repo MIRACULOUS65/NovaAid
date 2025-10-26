@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Details - Refugee Aid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 80%, white, transparent);
+            background-size: 200% 200%;
+            opacity: 0.2;
+            z-index: 0;
+            animation: twinkle 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.3; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1a0033 0%, #330066 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 0, 110, 0.3);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #330066 0%, #4d0099 100%);
+            box-shadow: 0 5px 20px rgba(255, 0, 110, 0.4);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff006e 0%, #8a2be2 50%, #3a86ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2) 0%, rgba(138, 43, 226, 0.2) 50%, rgba(58, 134, 255, 0.2) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 0, 110, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 0, 110, 0.1);
+        }
+
+        .score-value {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff006e 0%, #3a86ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .score-label {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-top: 10px;
+        }
+
+        .urgency-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .urgency-critical {
+            background: linear-gradient(135deg, #ff006e 0%, #ff4d94 100%);
+            box-shadow: 0 5px 20px rgba(255, 0, 110, 0.5);
+        }
+
+        .urgency-moderate {
+            background: linear-gradient(135deg, #ffbe0b 0%, #ffd60a 100%);
+            color: #000;
+            box-shadow: 0 5px 20px rgba(255, 190, 11, 0.5);
+        }
+
+        .urgency-low {
+            background: linear-gradient(135deg, #3a86ff 0%, #5aa9ff 100%);
+            box-shadow: 0 5px 20px rgba(58, 134, 255, 0.5);
+        }
+
+        .section {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(20, 20, 30, 0.9) 100%);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #ff006e 0%, #3a86ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .data-item {
+            background: linear-gradient(135deg, rgba(30, 30, 40, 0.8) 0%, rgba(40, 40, 50, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 110, 0.15);
+            transition: all 0.3s;
+        }
+
+        .data-item:hover {
+            border-color: rgba(255, 0, 110, 0.4);
+            box-shadow: 0 5px 20px rgba(255, 0, 110, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .data-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .data-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .notes-section {
+            background: linear-gradient(135deg, rgba(255, 190, 11, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+            border: 1px solid rgba(255, 190, 11, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .notes-section h3 {
+            color: #ffbe0b;
+            margin-bottom: 15px;
+        }
+
+        .notes-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes-section li {
+            padding: 8px 0;
+            color: #a0a0a0;
+            border-bottom: 1px solid rgba(255, 190, 11, 0.1);
+        }
+
+        .notes-section li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+            <h1 id="locationTitle">Loading...</h1>
+        </div>
+
+        <div class="score-display">
+            <div class="score-label">Refugee Aid Urgency Score</div>
+            <div class="score-value" id="scoreValue">---</div>
+            <div id="urgencyBadge"></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Input Data</h2>
+            <div class="data-grid" id="inputData"></div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Output Metrics</h2>
+            <div class="data-grid" id="outputData"></div>
+        </div>
+
+        <div class="section" id="signalsSection">
+            <h2>🎯 Signal Breakdown</h2>
+            <div class="data-grid" id="signalsData"></div>
+        </div>
+
+        <div class="section" id="contributionsSection">
+            <h2>⚖️ Weighted Contributions</h2>
+            <div class="data-grid" id="contributionsData"></div>
+        </div>
+
+        <div id="notesSection"></div>
+    </div>
+
+    <script>
+        // Get location ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const locationId = urlParams.get('id');
+
+        if (!locationId) {
+            document.querySelector('.container').innerHTML = '<div style="text-align: center; padding: 100px;"><h1>❌ No location specified</h1><a href="/dashboard" class="back-btn">Back to Dashboard</a></div>';
+        } else {
+            loadLocationData();
+        }
+
+        function loadLocationData() {
+            const data = localStorage.getItem('refugee_aid_data');
+            if (!data) {
+                showError('No data found');
+                return;
+            }
+
+            const allData = JSON.parse(data);
+            const item = allData.find(d => d.location_id === locationId);
+
+            if (!item) {
+                showError('Location not found');
+                return;
+            }
+
+            displayData(item);
+        }
+
+        function showError(message) {
+            document.querySelector('.container').innerHTML = `
+                <div style="text-align: center; padding: 100px;">
+                    <h1>❌ ${message}</h1>
+                    <a href="/dashboard" class="back-btn">Back to Dashboard</a>
+                </div>
+            `;
+        }
+
+        function displayData(item) {
+            // Title
+            document.getElementById('locationTitle').textContent = `📍 ${item.location_id}`;
+
+            // Score
+            document.getElementById('scoreValue').textContent = item.refugee_aid_score.toFixed(3);
+
+            // Urgency badge
+            const score = item.refugee_aid_score;
+            let urgencyClass, urgencyText;
+            if (score >= 0.7) {
+                urgencyClass = 'urgency-critical';
+                urgencyText = 'CRITICAL - Immediate Action Required';
+            } else if (score >= 0.4) {
+                urgencyClass = 'urgency-moderate';
+                urgencyText = 'MODERATE - Action Needed Soon';
+            } else {
+                urgencyClass = 'urgency-low';
+                urgencyText = 'LOW - Monitor Situation';
+            }
+            document.getElementById('urgencyBadge').innerHTML = `<span class="urgency-badge ${urgencyClass}">${urgencyText}</span>`;
+
+            // Input data
+            const inputFields = {
+                'location_id': 'Location ID',
+                'population': 'Population',
+                'area_km2': 'Area (km²)',
+                'crowd_density': 'Crowd Density (ppl/km²)',
+                'food_supply_days': 'Food Supply (days)',
+                'water_lpd': 'Water (L/person/day)',
+                'health_severity_0_1': 'Health Severity (0-1)',
+                'disease_incidence_per_1k': 'Disease Incidence (per 1k)',
+                'weather_severity_0_1': 'Weather Severity (0-1)',
+                'disaster_flag': 'Disaster Flag',
+                'influx_percent_7d': 'Influx (% 7d)'
+            };
+
+            let inputHTML = '';
+            Object.entries(inputFields).forEach(([key, label]) => {
+                if (item[key] !== undefined && item[key] !== null && item[key] !== '') {
+                    inputHTML += `
+                        <div class="data-item">
+                            <div class="data-label">${label}</div>
+                            <div class="data-value">${item[key]}</div>
+                        </div>
+                    `;
+                }
+            });
+            document.getElementById('inputData').innerHTML = inputHTML;
+
+            // Output data
+            let outputHTML = `
+                <div class="data-item">
+                    <div class="data-label">Refugee Aid Score</div>
+                    <div class="data-value">${item.refugee_aid_score.toFixed(3)}</div>
+                </div>
+            `;
+            document.getElementById('outputData').innerHTML = outputHTML;
+
+            // Signals
+            if (item.details) {
+                const signalLabels = {
+                    density: 'Crowd Density',
+                    food: 'Food Supply',
+                    water: 'Water Supply',
+                    health: 'Health/Disease',
+                    weather: 'Weather/Disaster',
+                    movement: 'Movement/Influx'
+                };
+
+                let signalsHTML = '';
+                Object.entries(item.details).forEach(([key, value]) => {
+                    const percent = (value * 100).toFixed(1);
+                    signalsHTML += `
+                        <div class="data-item">
+                            <div class="data-label">${signalLabels[key] || key}</div>
+                            <div class="data-value">${percent}%</div>
+                        </div>
+                    `;
+                });
+                document.getElementById('signalsData').innerHTML = signalsHTML;
+            } else {
+                document.getElementById('signalsSection').style.display = 'none';
+            }
+
+            // Contributions
+            if (item.contributions) {
+                let contributionsHTML = '';
+                Object.entries(item.contributions).forEach(([key, value]) => {
+                    const contrib = (value * 100).toFixed(2);
+                    contributionsHTML += `
+                        <div class="data-item">
+                            <div class="data-label">${key.toUpperCase()}</div>
+                            <div class="data-value">+${contrib}%</div>
+                        </div>
+                    `;
+                });
+                document.getElementById('contributionsData').innerHTML = contributionsHTML;
+            } else {
+                document.getElementById('contributionsSection').style.display = 'none';
+            }
+
+            // Notes
+            if (item.notes && item.notes.length > 0) {
+                let notesHTML = `
+                    <div class="notes-section">
+                        <h3>⚠️ Notes & Warnings</h3>
+                        <ul>
+                `;
+                item.notes.forEach(note => {
+                    notesHTML += `<li>• ${note}</li>`;
+                });
+                notesHTML += '</ul></div>';
+                document.getElementById('notesSection').innerHTML = notesHTML;
+            }
+        }
+    </script>
+</body>
+</html>

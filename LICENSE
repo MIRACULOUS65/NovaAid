@@ -1,0 +1,44 @@
+MIT License
+
+Copyright (c) 2025 NovaAid - MIRACULOUS65
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+ADDITIONAL DISCLAIMER FOR BLOCKCHAIN APPLICATIONS:
+
+This software interacts with blockchain networks and smart contracts. Users
+are solely responsible for:
+- Securing their private keys and seed phrases
+- Understanding the risks of blockchain transactions
+- Verifying smart contract addresses before transactions
+- Understanding that blockchain transactions are irreversible
+- Ensuring compliance with local laws and regulations
+
+The developers and contributors of NovaAid are not liable for:
+- Loss of funds due to user error, hacks, or exploits
+- Smart contract vulnerabilities (contracts are not externally audited)
+- Third-party service failures (Clerk, Firebase, Daily.co, etc.)
+- Network issues or blockchain congestion
+- Any financial losses incurred through use of this software
+
+USE AT YOUR OWN RISK. This software is provided for humanitarian purposes and
+is currently in BETA testing on testnet networks. Do not use with significant
+value until proper security audits have been conducted.

@@ -1,0 +1,15 @@
+{
+  "network": "alfajores",
+  "chainId": 44787,
+  "deployer": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+  "timestamp": "2025-10-25T12:39:28.690Z",
+  "contracts": {
+    "SemaphoreVerifier": "0x81D0C821839768C1093DFBaBEBC04F08330C343a",
+    "VerifiedPayments": "0x9eD7aF4c478a4bEd686E09303CC25F4985600cDD"
+  },
+  "configuration": {
+    "serverWallet": "0x3bE3f44cCFF04b0DBe03ADe00710f35eBc387151",
+    "verificationFee": "10000000000000000",
+    "cusdAddress": "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
+  }
+}
