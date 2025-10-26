@@ -1653,10 +1653,10 @@ cd NovaAid
 
 | Path | Time | Best For |
 |------|------|----------|
-| 🏃 [**Quick Start**](./guides/QUICK_START.md) | 15 min | Get running fast |
-| 📋 [**Installation Commands**](./guides/INSTALLATION_COMMANDS.md) | 20 min | Copy-paste setup |
-| 🏗️ [**Full Implementation**](./guides/SEMAPHORE_CELO_IMPLEMENTATION.md) | 2 hours | Deep understanding |
-| 🌐 [**Production Deployment**](./guides/DEPLOYMENT_GUIDE.md) | 4 hours | Go live |
+| 🏃 [**Quick Start**](./QUICK_START.md) | 15 min | Get running fast |
+| 📋 [**Installation Commands**](./INSTALLATION_COMMANDS.md) | 20 min | Copy-paste setup |
+| 🏗️ [**Full Implementation**](./SEMAPHORE_CELO_IMPLEMENTATION.md) | 2 hours | Deep understanding |
+| 🌐 [**Production Deployment**](./DEPLOYMENT_GUIDE.md) | 4 hours | Go live |
 
 ---
 
