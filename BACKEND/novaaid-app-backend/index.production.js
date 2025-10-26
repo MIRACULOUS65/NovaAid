@@ -32,8 +32,7 @@ app.use(cors({
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.log(`CORS blocked origin: ${origin}`);
-      callback(null, false);
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
@@ -48,6 +47,7 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'NovaAid Backend API',
     version: '1.0.0',
+    environment: process.env.NODE_ENV,
     endpoints: {
       health: '/health',
       commitment: '/api/commitment',
@@ -60,7 +60,11 @@ app.get('/', (req, res) => {
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV
+  });
 });
 
 // Routes
@@ -74,11 +78,12 @@ app.use((err, req, res, next) => {
   console.error('Error:', err);
   res.status(500).json({ 
     error: 'Internal server error', 
-    message: err.message 
+    message: process.env.NODE_ENV === 'development' ? err.message : 'An error occurred'
   });
 });
 
 app.listen(PORT, () => {
   console.log(`NovaAid Backend Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log(`CORS enabled for: ${allowedOrigins.join(', ')}`);
 });

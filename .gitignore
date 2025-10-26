@@ -26,6 +26,11 @@ pnpm-lock.yaml
 **/.env.test
 **/.env.production
 
+# Deployment config files with secrets
+RAILWAY_VARS_COMPLETE.txt
+RAILWAY_ENV_VARS.txt
+VERCEL_ENV_VARS.txt
+
 # ============================================
 # Next.js Build Output
 # ============================================
