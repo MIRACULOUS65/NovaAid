@@ -1,6 +1,4 @@
 ````markdown
-<div align="center">
-
 # 🌟 NovaAid - Refugee Assistance Platform
 
 ### Blockchain-Powered Humanitarian Aid with Zero-Knowledge Privacy
