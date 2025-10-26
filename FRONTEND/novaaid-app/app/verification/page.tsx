@@ -291,7 +291,7 @@ export default function VerificationPage() {
                 <div className="text-center py-8">
                   <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
                   <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-2">
-                    You're Verified!
+                    You&apos;re Verified!
                   </h2>
                   <p className="text-neutral-600 dark:text-neutral-400 mb-6">
                     Your account has been successfully verified on the blockchain.
