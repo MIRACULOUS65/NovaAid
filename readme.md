@@ -473,14 +473,14 @@ curl http://localhost:3001/health
 
 ### 📚 Next Steps
 
-- 📖 Read the **[Complete Implementation Guide](./IMPLEMENTATION_COMPLETE.md)**
-- 🎥 Setup **[Video Calling](./VIDEO_CALLING_IMPLEMENTATION.md)**
-- 🤖 Configure **[Fraud Detection](./FRAUD_DETECTION_SETUP.md)**
-- 📍 Deploy **[Location Tracking](./LOCATION_TRACKER_SETUP.md)**
-- 🚨 Setup **[Alert Creation](./ALERT_CREATION_SETUP.md)**
-- 🌐 Follow **[Production Deployment Guide](./DEPLOYMENT_GUIDE.md)**
+- 📖 Read the **[Complete Implementation Guide](./guides/IMPLEMENTATION_COMPLETE.md)**
+- 🎥 Setup **[Video Calling](./guides/VIDEO_CALLING_IMPLEMENTATION.md)**
+- 🤖 Configure **[Fraud Detection](./guides/FRAUD_DETECTION_SETUP.md)**
+- 📍 Deploy **[Location Tracking](./guides/LOCATION_TRACKER_SETUP.md)**
+- 🚨 Setup **[Alert Creation](./guides/ALERT_CREATION_SETUP.md)**
+- 🌐 Follow **[Production Deployment Guide](./guides/DEPLOYMENT_GUIDE.md)**
 
-**For detailed command-by-command instructions, see [`INSTALLATION_COMMANDS.md`](./INSTALLATION_COMMANDS.md)**
+**For detailed command-by-command instructions, see [`INSTALLATION_COMMANDS.md`](./guides/INSTALLATION_COMMANDS.md)**
 
 ---
 
@@ -1653,10 +1653,10 @@ cd NovaAid
 
 | Path | Time | Best For |
 |------|------|----------|
-| 🏃 [**Quick Start**](./QUICK_START.md) | 15 min | Get running fast |
-| 📋 [**Installation Commands**](./INSTALLATION_COMMANDS.md) | 20 min | Copy-paste setup |
-| 🏗️ [**Full Implementation**](./SEMAPHORE_CELO_IMPLEMENTATION.md) | 2 hours | Deep understanding |
-| 🌐 [**Production Deployment**](./DEPLOYMENT_GUIDE.md) | 4 hours | Go live |
+| 🏃 [**Quick Start**](./guides/QUICK_START.md) | 15 min | Get running fast |
+| 📋 [**Installation Commands**](./guides/INSTALLATION_COMMANDS.md) | 20 min | Copy-paste setup |
+| 🏗️ [**Full Implementation**](./guides/SEMAPHORE_CELO_IMPLEMENTATION.md) | 2 hours | Deep understanding |
+| 🌐 [**Production Deployment**](./guides/DEPLOYMENT_GUIDE.md) | 4 hours | Go live |
 
 ---
 
@@ -1889,14 +1889,17 @@ If you find NovaAid useful, please consider starring the repository!
 | Resource | Description | Link |
 |----------|-------------|------|
 | **README** | This file - comprehensive overview | You're here! |
-| **Quick Start** | 15-minute setup guide | [QUICK_START.md](./QUICK_START.md) |
-| **Installation** | Copy-paste commands | [INSTALLATION_COMMANDS.md](./INSTALLATION_COMMANDS.md) |
-| **Deployment** | Production deployment guide | [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) |
-| **Technical Docs** | Deep-dive architecture | [SEMAPHORE_CELO_IMPLEMENTATION.md](./SEMAPHORE_CELO_IMPLEMENTATION.md) |
-| **Video Calling** | Video feature complete guide | [VIDEO_CALLING_IMPLEMENTATION.md](./VIDEO_CALLING_IMPLEMENTATION.md) |
-| **Fraud Detection** | AI fraud detection setup | [FRAUD_DETECTION_SETUP.md](./FRAUD_DETECTION_SETUP.md) |
-| **Alert Creation** | AI alert generation | [ALERT_CREATION_SETUP.md](./ALERT_CREATION_SETUP.md) |
-| **Location Tracker** | GPS tracking system | [LOCATION_TRACKER_SETUP.md](./LOCATION_TRACKER_SETUP.md) |
+| **Quick Start** | 15-minute setup guide | [QUICK_START.md](./guides/QUICK_START.md) |
+| **Installation** | Copy-paste commands | [INSTALLATION_COMMANDS.md](./guides/INSTALLATION_COMMANDS.md) |
+| **Deployment** | Production deployment guide | [DEPLOYMENT_GUIDE.md](./guides/DEPLOYMENT_GUIDE.md) |
+| **Technical Docs** | Deep-dive architecture | [SEMAPHORE_CELO_IMPLEMENTATION.md](./guides/SEMAPHORE_CELO_IMPLEMENTATION.md) |
+| **Video Calling** | Video feature complete guide | [VIDEO_CALLING_IMPLEMENTATION.md](./guides/VIDEO_CALLING_IMPLEMENTATION.md) |
+| **Fraud Detection** | AI fraud detection setup | [FRAUD_DETECTION_SETUP.md](./guides/FRAUD_DETECTION_SETUP.md) |
+| **Alert Creation** | AI alert generation | [ALERT_CREATION_SETUP.md](./guides/ALERT_CREATION_SETUP.md) |
+| **Location Tracker** | GPS tracking system | [LOCATION_TRACKER_SETUP.md](./guides/LOCATION_TRACKER_SETUP.md) |
+| **Contributing** | How to contribute | [CONTRIBUTING.md](./guides/CONTRIBUTING.md) |
+| **Security** | Security policy | [SECURITY.md](./guides/SECURITY.md) |
+| **Changelog** | Version history | [CHANGELOG.md](./guides/CHANGELOG.md) |
 
 ---
 
