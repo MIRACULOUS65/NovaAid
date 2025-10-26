@@ -68,8 +68,8 @@ export function getOrCreateIdentity(userId: string): SemaphoreIdentity {
   return {
     commitment: '0x' + identity.commitment.toString(16).padStart(64, '0'),
     identityString,
-    trapdoor: identity.trapdoor,
-    nullifier: identity.nullifier,
+    trapdoor: (identity as any).trapdoor,
+    nullifier: (identity as any).nullifier,
     isNew: true
   };
 }
