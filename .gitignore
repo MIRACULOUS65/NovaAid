@@ -7,7 +7,7 @@
 # ============================================
 node_modules/
 **/node_modules/
-package-lock.json
+# package-lock.json (needed for Railway deployment)
 yarn.lock
 pnpm-lock.yaml
 
