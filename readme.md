@@ -1,4 +1,3 @@
-````markdown
 # 🌟 NovaAid - Refugee Assistance Platform
 
 ### Blockchain-Powered Humanitarian Aid with Zero-Knowledge Privacy
@@ -22,8 +21,6 @@
 🔗 View on BlockScout: [**Contract Explorer**](https://celo-alfajores.blockscout.com/address/0x8a3a92E1207de2eBA6EF3AB14d2e02b93A6884c5)
 
 ---
-
-</div>
 
 ## 🎯 Project Overview
 
@@ -187,20 +184,20 @@ NovaAid/
 │       ├── ngo-dashboard.html            # NGO map dashboard
 │       └── ngo-dashboard.js              # Real-time map updates
 │
-├── 📜 DEPLOYMENT GUIDES/
-│   ├── QUICK_START.md                    # 15-minute setup guide
-│   ├── INSTALLATION_COMMANDS.md          # Copy-paste commands
-│   ├── DEPLOYMENT_GUIDE.md               # Production deployment steps
-│   ├── SEMAPHORE_CELO_IMPLEMENTATION.md  # Technical architecture deep-dive
-│   ├── VIDEO_CALLING_IMPLEMENTATION.md   # Video feature documentation
-│   ├── FRAUD_DETECTION_SETUP.md          # AI fraud setup guide
-│   ├── ALERT_CREATION_SETUP.md           # Alert creation service guide
-│   └── LOCATION_TRACKER_SETUP.md         # Location tracking setup
+├── 📜 PROJECT DOCUMENTATION/
+│   ├── README.md                         # This comprehensive guide
+│   ├── LICENSE                           # MIT License
+│   └── Component-specific README files   # In each subdirectory
 │
 ├── 🛠️ SCRIPTS/
-│   ├── start-all-services.bat            # Launch all services (Windows)
-│   ├── deploy-all.bat                    # Deploy all components (Windows)
-│   └── start-video-test.bat              # Video calling test script
+│   ├── FRONTEND/NGO SECTION/
+│   │   ├── start-both-apps.bat           # Launch both frontend apps
+│   │   ├── start-main-app.bat            # Launch refugee portal
+│   │   └── start-ngo-portal.bat          # Launch NGO portal
+│   └── AI-ML/                            # Individual service launchers
+│       ├── START_FRAUD_DETECTION.bat     # Fraud detection service
+│       ├── START_ALERT_CREATION.bat      # Alert creation service
+│       └── START_LOCATION_TRACKER.bat    # Location tracking service
 │
 └── 📋 CONFIGURATION FILES/
     ├── package.json                      # Root package dependencies
@@ -349,19 +346,29 @@ CELO_RPC_URL=https://forno.celo.org
 
 ### 🎬 Start All Services
 
-#### Option A: Windows Batch Script (Recommended)
+#### Option A: Windows Batch Scripts (Recommended)
 
+**Start Frontend Services:**
 ```bash
-# From project root
-start-all-services.bat
+# From FRONTEND/NGO SECTION/
+start-both-apps.bat
+# This starts both refugee portal (port 3000) and NGO portal (port 3002)
 ```
 
-This will open 5 terminal windows:
-1. Backend API (port 3001)
-2. Refugee Portal (port 3000)
-3. NGO Portal (port 3002)
-4. Fraud Detection (port 3000 - standalone)
-5. Location Tracker (port 8000)
+**Start Individual AI/ML Services:**
+```bash
+# Fraud Detection
+cd AI-ML/fraud
+START_FRAUD_DETECTION.bat
+
+# Alert Creation
+cd AI-ML/Alert_Creation
+START_ALERT_CREATION.bat
+
+# Location Tracker
+cd AI-ML/location
+START_LOCATION_TRACKER.bat
+```
 
 #### Option B: Manual Start (Cross-Platform)
 
@@ -471,14 +478,19 @@ curl http://localhost:3001/health
 
 ### 📚 Next Steps
 
-- 📖 Read the **[Complete Implementation Guide](./guides/IMPLEMENTATION_COMPLETE.md)**
-- 🎥 Setup **[Video Calling](./guides/VIDEO_CALLING_IMPLEMENTATION.md)**
-- 🤖 Configure **[Fraud Detection](./guides/FRAUD_DETECTION_SETUP.md)**
-- 📍 Deploy **[Location Tracking](./guides/LOCATION_TRACKER_SETUP.md)**
-- 🚨 Setup **[Alert Creation](./guides/ALERT_CREATION_SETUP.md)**
-- 🌐 Follow **[Production Deployment Guide](./guides/DEPLOYMENT_GUIDE.md)**
+- 📖 Explore the **individual component README files** in each directory
+- 🎥 Setup **Video Calling** using the Daily.co integration
+- 🤖 Configure **[Fraud Detection](./AI-ML/fraud/QUICK_START.md)**
+- 📍 Deploy **Location Tracking** services in the AI-ML directory
+- 🚨 Setup **Alert Creation** AI tools
+- 🌐 Follow production deployment best practices
+- 📋 Check each component's specific documentation files
 
-**For detailed command-by-command instructions, see [`INSTALLATION_COMMANDS.md`](./guides/INSTALLATION_COMMANDS.md)**
+**For detailed setup instructions, check the README files in each component directory:**
+- [`BACKEND/README.md`](./BACKEND/novaaid-app-backend/README.md)
+- [`BLOCKCHAIN/README.md`](./BLOCKCHAIN/novaaid-app-blockchain/README.md)
+- [`FRONTEND/README.md`](./FRONTEND/novaaid-app/README.md)
+- [`AI-ML/fraud/README.md`](./AI-ML/fraud/README.md)
 
 ---
 
@@ -486,13 +498,13 @@ curl http://localhost:3001/health
 
 | Document | Description |
 |----------|-------------|
-| [`QUICK_START.md`](./QUICK_START.md) | Get running in 15 minutes |
-| [`INSTALLATION_COMMANDS.md`](./INSTALLATION_COMMANDS.md) | Copy-paste ready commands |
-| [`SEMAPHORE_CELO_IMPLEMENTATION.md`](./SEMAPHORE_CELO_IMPLEMENTATION.md) | Complete technical guide |
-| [`DEPLOYMENT_GUIDE.md`](./DEPLOYMENT_GUIDE.md) | Production deployment steps |
-| [`IMPLEMENTATION_COMPLETE.md`](./IMPLEMENTATION_COMPLETE.md) | Implementation summary |
+| [`README.md`](./README.md) | This comprehensive overview |
 | [`BACKEND/README.md`](./BACKEND/novaaid-app-backend/README.md) | Backend API documentation |
 | [`BLOCKCHAIN/README.md`](./BLOCKCHAIN/novaaid-app-blockchain/README.md) | Smart contract documentation |
+| [`FRONTEND/README.md`](./FRONTEND/novaaid-app/README.md) | Frontend application guide |
+| [`AI-ML/fraud/README.md`](./AI-ML/fraud/README.md) | Fraud detection system setup |
+| [`AI-ML/fraud/QUICK_START.md`](./AI-ML/fraud/QUICK_START.md) | Quick fraud detection setup |
+| Individual component READMEs | Located in each project subdirectory |
 
 ---
 
@@ -1651,10 +1663,10 @@ cd NovaAid
 
 | Path | Time | Best For |
 |------|------|----------|
-| 🏃 [**Quick Start**](./QUICK_START.md) | 15 min | Get running fast |
-| 📋 [**Installation Commands**](./INSTALLATION_COMMANDS.md) | 20 min | Copy-paste setup |
-| 🏗️ [**Full Implementation**](./SEMAPHORE_CELO_IMPLEMENTATION.md) | 2 hours | Deep understanding |
-| 🌐 [**Production Deployment**](./DEPLOYMENT_GUIDE.md) | 4 hours | Go live |
+| 🏃 **Quick Start** | 15 min | Follow the installation steps above |
+| 📋 **Component Setup** | 20 min | Check individual README files |
+| 🏗️ **Full Implementation** | 2 hours | Complete system understanding |
+| 🌐 **Production Deployment** | 4 hours | Deploy to live environment |
 
 ---
 
@@ -1752,10 +1764,9 @@ If you find NovaAid useful, please consider starring the repository!
 
 **Made with ❤️ by the NovaAid community**
 
-*Last updated: October 26, 2025*
+*Last updated: October 27, 2025*
 
 </div>
-````
 
 ## 📅 Project Status & Roadmap
 
@@ -1887,17 +1898,12 @@ If you find NovaAid useful, please consider starring the repository!
 | Resource | Description | Link |
 |----------|-------------|------|
 | **README** | This file - comprehensive overview | You're here! |
-| **Quick Start** | 15-minute setup guide | [QUICK_START.md](./guides/QUICK_START.md) |
-| **Installation** | Copy-paste commands | [INSTALLATION_COMMANDS.md](./guides/INSTALLATION_COMMANDS.md) |
-| **Deployment** | Production deployment guide | [DEPLOYMENT_GUIDE.md](./guides/DEPLOYMENT_GUIDE.md) |
-| **Technical Docs** | Deep-dive architecture | [SEMAPHORE_CELO_IMPLEMENTATION.md](./guides/SEMAPHORE_CELO_IMPLEMENTATION.md) |
-| **Video Calling** | Video feature complete guide | [VIDEO_CALLING_IMPLEMENTATION.md](./guides/VIDEO_CALLING_IMPLEMENTATION.md) |
-| **Fraud Detection** | AI fraud detection setup | [FRAUD_DETECTION_SETUP.md](./guides/FRAUD_DETECTION_SETUP.md) |
-| **Alert Creation** | AI alert generation | [ALERT_CREATION_SETUP.md](./guides/ALERT_CREATION_SETUP.md) |
-| **Location Tracker** | GPS tracking system | [LOCATION_TRACKER_SETUP.md](./guides/LOCATION_TRACKER_SETUP.md) |
-| **Contributing** | How to contribute | [CONTRIBUTING.md](./guides/CONTRIBUTING.md) |
-| **Security** | Security policy | [SECURITY.md](./guides/SECURITY.md) |
-| **Changelog** | Version history | [CHANGELOG.md](./guides/CHANGELOG.md) |
+| **Backend API** | Express.js API documentation | [BACKEND/README.md](./BACKEND/novaaid-app-backend/README.md) |
+| **Smart Contracts** | Blockchain contract documentation | [BLOCKCHAIN/README.md](./BLOCKCHAIN/novaaid-app-blockchain/README.md) |
+| **Frontend App** | React/Next.js application guide | [FRONTEND/README.md](./FRONTEND/novaaid-app/README.md) |
+| **Fraud Detection** | AI fraud detection system setup | [AI-ML/fraud/README.md](./AI-ML/fraud/README.md) |
+| **Quick Start (Fraud)** | Quick fraud detection setup | [AI-ML/fraud/QUICK_START.md](./AI-ML/fraud/QUICK_START.md) |
+| **Component READMEs** | Individual component documentation | Located in each subdirectory |
 
 ---
 
